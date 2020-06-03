@@ -1,0 +1,16 @@
+# to build docker image cd into directory with desired Dockerfile and tag the build
+docker build -t cooltag .
+
+# to run jekyll container pull website from git hub and add site directory to a docker volume
+git clone https://github.com/marneylc/breathe.git
+docker container run --rm -v /home/user/breathe:/breathe -p 4000:4000 jekyll
+
+# to run notebook container
+docker container run -d -i -t -p 8888:8888 notebook
+docker ps #take note of <docker id>
+docker container exec <docker id> jupyter notebook list #use the token to login
+
+# to run rstudio container
+docker container run -d -e ROOT=TRUE -e PASSWORD=password --memory="4g" --cpu-shares=256 -v /home/user/code/:/home/work/ -p 8787:8787 rstudio
+
+# be sure to open ports if you have a firewall
